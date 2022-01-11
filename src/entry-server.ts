@@ -1,21 +1,22 @@
 import { createSSRApp } from 'vue'
 import { renderToString } from '@vue/server-renderer'
-import mockPS from './mockPS'
-import MsMissingElement from './components/MsMissingElement/MsMissingElement.vue'
-import * as css from './css/index.css'
 import { createStore } from './ts/store/store'
+import { PageStructure } from './interfaces/pageStructure'
+import DefaultView from './components/DefaultView/DefaultView.vue'
+import MsMissingElement from './components/MsMissingElement/MsMissingElement'
 
-export async function render() {
+export async function render(pageStructure: PageStructure) {
+    console.log('pageStructure:', pageStructure)
     const app = createSSRApp({
         components: {
-            MsMissingElement,
+            DefaultView,
         },
         data() {
             return {
-                mockPS,
+                pageStructure,
             }
         },
-        template: `<ms-missing-element :cmsContent="mockPS.page" />`,
+        template: `<default-view :pageStructure="pageStructure" />`,
     })
 
     const globalElements = await addGlobalComponents(app)
@@ -26,13 +27,12 @@ export async function render() {
     app.use(store)
 
     return renderToString(app).then((html) => {
-        // return html + `<style>${css.default}</style>`
         return html
     })
 }
 
 async function addGlobalComponents(app: ReturnType<typeof createSSRApp>) {
-    const modules = import.meta.glob('../src/cmsElements/**/[MES]_*.vue')
+    const modules = import.meta.glob('../src/cmsElements/**/*.vue')
     const componentPaths = Object.keys(modules)
 
     const loadedModules = await Promise.all(componentPaths.map((modulePath) => modules[modulePath]()))

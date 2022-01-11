@@ -1,0 +1,63 @@
+{
+    "story": {
+        "name": "Home",
+        "created_at": "2022-01-10T19:31:41.663Z",
+        "published_at": null,
+        "alternates": [],
+        "id": 97389592,
+        "uuid": "d9253f18-da40-4122-8336-36fc5df5ba4e",
+        "content": {
+            "_uid": "69c6814f-3168-4000-bb3f-790e79e6c8c7",
+            "body": [
+                {
+                    "_uid": "2516508f-245d-4931-be5e-26de04ee784c",
+                    "headline": "Hello world!",
+                    "component": "teaser",
+                    "_editable": "\u003c!--#storyblok#{\"name\": \"teaser\", \"space\": \"142200\", \"uid\": \"2516508f-245d-4931-be5e-26de04ee784c\", \"id\": \"97389592\"}--\u003e"
+                },
+                {
+                    "_uid": "8659198c-0c27-4dc0-a34a-c74a9ee37b51",
+                    "columns": [
+                        {
+                            "_uid": "83d1994b-93c9-4d07-8a10-73185d274fa9",
+                            "name": "Feature 1",
+                            "component": "feature",
+                            "_editable": "\u003c!--#storyblok#{\"name\": \"feature\", \"space\": \"142200\", \"uid\": \"83d1994b-93c9-4d07-8a10-73185d274fa9\", \"id\": \"97389592\"}--\u003e"
+                        },
+                        {
+                            "_uid": "898e800e-a414-4ed6-afec-6acdf66332cc",
+                            "name": "Feature 2",
+                            "component": "feature",
+                            "_editable": "\u003c!--#storyblok#{\"name\": \"feature\", \"space\": \"142200\", \"uid\": \"898e800e-a414-4ed6-afec-6acdf66332cc\", \"id\": \"97389592\"}--\u003e"
+                        },
+                        {
+                            "_uid": "24583b53-3446-43e8-a4da-484933a4c6f2",
+                            "name": "Feature 3",
+                            "component": "feature",
+                            "_editable": "\u003c!--#storyblok#{\"name\": \"feature\", \"space\": \"142200\", \"uid\": \"24583b53-3446-43e8-a4da-484933a4c6f2\", \"id\": \"97389592\"}--\u003e"
+                        }
+                    ],
+                    "component": "grid",
+                    "_editable": "\u003c!--#storyblok#{\"name\": \"grid\", \"space\": \"142200\", \"uid\": \"8659198c-0c27-4dc0-a34a-c74a9ee37b51\", \"id\": \"97389592\"}--\u003e"
+                }
+            ],
+            "component": "page",
+            "_editable": "\u003c!--#storyblok#{\"name\": \"page\", \"space\": \"142200\", \"uid\": \"69c6814f-3168-4000-bb3f-790e79e6c8c7\", \"id\": \"97389592\"}--\u003e"
+        },
+        "slug": "home",
+        "full_slug": "home",
+        "default_full_slug": null,
+        "sort_by_date": null,
+        "position": 0,
+        "tag_list": [],
+        "is_startpage": false,
+        "parent_id": 0,
+        "meta_data": null,
+        "group_id": "fe6f4b81-93b2-42f6-afd3-393592624623",
+        "first_published_at": null,
+        "release_id": null,
+        "lang": "default",
+        "path": null,
+        "translated_slugs": []
+    }
+}

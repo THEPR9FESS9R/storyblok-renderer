@@ -1,9 +1,16 @@
 import fs from 'fs'
 import path from 'path'
+import http from 'http'
+import https from 'https'
 import express from 'express'
 import { createServer as createViteServer } from 'vite'
+import axios from 'axios'
 
-async function createServer() {
+var privateKey = fs.readFileSync('./localhost.key', 'utf8')
+var certificate = fs.readFileSync('./localhost.crt', 'utf8')
+var mockPS = JSON.parse(fs.readFileSync('./fixture.json', 'utf8'))
+
+async function createApp() {
     const app = express()
 
     // Create Vite server in middleware mode. This disables Vite's own HTML
@@ -18,6 +25,7 @@ async function createServer() {
     app.use(vite.middlewares)
 
     app.use('*', async (req, res) => {
+        console.log('req.originalUrl', req.originalUrl)
         const url = req.originalUrl
 
         try {
@@ -37,7 +45,8 @@ async function createServer() {
             // 4. render the app HTML. This assumes entry-server.js's exported `render`
             //    function calls appropriate framework SSR APIs,
             //    e.g. ReactDOMServer.renderToString()
-            const appHtml = await render(url)
+            const pageStructure = await fetchPageStructure(url)
+            const appHtml = await render(pageStructure)
 
             // 5. Inject the app-rendered HTML into the template.
             const html = template.replace(`<!--ssr-outlet-->`, appHtml)
@@ -53,7 +62,22 @@ async function createServer() {
         }
     })
 
-    app.listen(3000)
+    return app
 }
 
-createServer()
+const credentials = { key: privateKey, cert: certificate }
+const app = await createApp()
+const httpServer = http.createServer(app)
+const httpsServer = https.createServer(credentials, app)
+
+httpServer.listen(8080)
+httpsServer.listen(8443)
+
+async function fetchPageStructure(url) {
+    const storyBlokUrl = `https://api.storyblok.com/v1/cdn/stories${url}?version=draft&token=${
+        process.env.TOKEN
+    }&cv=${Date.now()}`
+
+    console.log('storyBlokUrl:', storyBlokUrl)
+    return axios.get(storyBlokUrl).then(({ data }) => data)
+}
